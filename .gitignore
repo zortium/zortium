@@ -1,0 +1,50 @@
+# Environment
+.env
+env/
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Reports / output
+reports/*.json
+reports/
+*.log
+.superpowers/
+superpowers/
+
+# Build artifacts
+zortium.egg-info/
+
+# Whitepaper
+# whitepaper.pdf
+whitepaper.html
+
+# Internal pitch/training material — never ship
+.scripts
+scripts/
+TRAINING.MD

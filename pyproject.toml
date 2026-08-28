@@ -1,0 +1,64 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "zortium"
+version = "0.2.1"
+description = "Adversarial attack test suite for vision language models"
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+requires-python = ">=3.10"
+authors = [{ name = "The Zortium Authors" }]
+keywords = ["vlm", "adversarial", "security", "red-team", "jailbreak", "vision-language-model"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: Security",
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "openai>=2.31.0",
+    "httpx",
+    "rich",
+    "typer",
+    "pyyaml>=6.0",
+    "pillow>=12.2.0",
+    "python-dotenv>=1.2.2",
+    "numpy",
+    "requests",
+]
+
+[project.urls]
+Homepage = "https://zortium.dev"
+Repository = "https://github.com/zortium/zortium"
+
+[project.scripts]
+zortium = "zortium.cli.app:app"
+
+# ── Package inclusions ────────────────────────────────────────────────────────
+# Src layout: packages live under src/. Only CLI-relevant packages ship.
+# Server-side code (auth, db, routers, onprem, frontend) and test suite excluded.
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = ["server*"]
+
+# ── Data files ────────────────────────────────────────────────────────────────
+# Ship the small runtime assets each suite needs, enumerated per-directory so the
+# 266 MB assets/jailbreakv_28k/images/ corpus is NOT bundled — JailBreakV28KSuite
+# fetches those on demand from the official HuggingFace repo (python -m
+# zortium.attacks.jailbreakv_28k --download).
+[tool.setuptools.package-data]
+zortium = [
+    "config/*.json",
+    "assets/fonts/*",
+    "assets/qr_typographic/*.json",
+    "assets/typographic_injection/*.svg",
+    "assets/cross_modal_semantic/*.jpg",
+    "assets/jailbreakv_28k/*.csv",
+]
+
+[tool.black]
+line-length = 120

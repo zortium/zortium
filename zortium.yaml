@@ -1,0 +1,24 @@
+# Zortium scan settings — run with:  zortium --config zortium.yaml
+#
+# Every key is optional and maps to a CLI flag. Precedence, highest first:
+#   1. command-line flag       (e.g. --model ...)
+#   2. environment variable    (e.g. ZORTIUM_MODEL)
+#   3. this file
+#   4. built-in default
+# YAML or JSON both parse. Blank values are ignored (they fall through to env/default).
+
+# --- target model (required — here, or via flag/env) ---
+base_url: https://openrouter.ai/api/v1
+model: google/gemma-3-27b-it
+api_key: ""            # target key — or leave "" and export ZORTIUM_API_KEY instead
+
+# --- judge model (omit judge_model entirely to let the target grade itself, with a warning) ---
+judge_model:
+judge_base_url:
+judge_api_key: ""      # judge key — or leave "" and export ZORTIUM_JUDGE_API_KEY instead
+
+# --- run options ---
+fast: true             # false = thorough (full coverage, slower)
+wait: false            # true = wait & retry on rate limits instead of skipping (not for CI)
+max_asr: 100           # exit 1 if overall ASR exceeds this percent — the CI gate (100 = never fail)
+tps: 1                 # suites run in parallel — raise for high-limit / in-house models to finish faster
